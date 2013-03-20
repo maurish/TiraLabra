@@ -15,8 +15,8 @@ var algorithms = {
 function BinaryHeap(){
     return MinHeap(2)
 }
- //  childs are: ni-(n-2) to ni+1 where n is max amount of childs and i is index of node
- //  parent is: (i+(n-2)) / n   
+//  childs are: n * i + 1  to n * i + n
+//  parent is: floor((i - 1) / n)
 function MinHeap(childs){
     var list = []                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
     function heapify(i){
@@ -35,6 +35,16 @@ function MinHeap(childs){
     }
     function deleteMin(){
         
+    }
+    function parent(i){
+        return Math.floor((i-1)/childs)
+    }
+    function child(i){
+        var ret = []
+        for (var j = childs*i+1; j <= childs*i+childs; j++) {
+            ret.push(j)
+        }
+        return ret
     }
     
     return {
