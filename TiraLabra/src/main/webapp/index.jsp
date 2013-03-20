@@ -6,14 +6,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Visualization of Everything</title>
-        <script src="script.js"></script>
         <link rel="stylesheet" type="text/css" href="styles.css" />
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="http://underscorejs.org/underscore-min.js"></script>
-        <script src="http://backbonejs.org/backbone-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/kineticjs/4.3.1/kinetic.min.js"></script>
+
+
     </head>
     <body>
         <h1>Hello World!</h1>
-    <canvas></canvas>
-    </body>
+    <div id="visualizator"></div>
+    <script src="script.js"></script>
+</body>
 </html>
