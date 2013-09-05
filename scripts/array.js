@@ -7,19 +7,20 @@ function Array(){
 		this[this.length++]=val
 	}
 	this.remove = function(i){
-		i = checkNumber(i)
+		i = this.checkNumber(i)
 		for(var j = i;j<this.length;j++){
 			this[j]=this[j+1]
 		}
 		this.length--
+
 	}
 	this.get = function(i){
-		i = checkNumber(i)
+		i = this.checkNumber(i)
 		return this[i]
 	}
-	function checkNumber(i){
-		i = parseInt(i)
-		if (i<0||i>=this.length)throw new Error('IndexOutOfBoundsException') //check for overflows
+	this.checkNumber = function(i){
+		if (typeof i != 'number')throw new Error('InvalidParameterException')
+		if (i<0 || i>=this.length)throw new Error('IndexOutOfBoundsException') //check for overflows
 		return i
 	}
 }
