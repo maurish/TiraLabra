@@ -1,8 +1,8 @@
 TiraLabra
 =========
 
-Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit
-[wiki](https://github.com/maurish/TiraLabra/wiki)
+Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit   
+[WIKI](https://github.com/maurish/TiraLabra/wiki)
 ### How to run tests
 
 tests are located inside scripts/test folder relative to the project root
