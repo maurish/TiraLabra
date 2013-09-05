@@ -45,12 +45,16 @@ var vertice = function(node1, node2){
 var nodes = [
     node(20,20),
     node(150,150),
-    node(250,50)
+    node(250,50),
+    node(400,200)
 ]
 var vertices = [
     vertice(nodes[0],nodes[2]),
     vertice(nodes[1],nodes[0]),
-    vertice(nodes[1],nodes[2])
+    vertice(nodes[1],nodes[2]),
+    vertice(nodes[0],nodes[3]),
+    vertice(nodes[1],nodes[3]),
+    vertice(nodes[2],nodes[3])
 ]
 vertices.forEach(function(vertice){
     mainLayer.add(vertice)
