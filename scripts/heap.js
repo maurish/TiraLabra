@@ -85,3 +85,5 @@ function MinHeap(childs){
         isEmpty:isEmpty
     }
 }
+if (module && module.exports)
+ module.exports = exports = MinHeap
