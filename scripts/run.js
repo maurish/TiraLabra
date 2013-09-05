@@ -45,7 +45,7 @@ var vertice = function(node1, node2){
 var nodes = [
     node(20,20),
     node(150,150),
-    node(250,250)
+    node(250,50)
 ]
 var vertices = [
     vertice(nodes[0],nodes[2]),
