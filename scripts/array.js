@@ -7,7 +7,7 @@ function Array(){
 		this[this.length++]=val
 	}
 	this.remove = function(i){
-		i = this.checkNumber(i)
+		this.checkNumber(i)
 		for(var j = i;j<this.length;j++){
 			this[j]=this[j+1]
 		}
@@ -15,13 +15,19 @@ function Array(){
 
 	}
 	this.get = function(i){
-		i = this.checkNumber(i)
+		this.checkNumber(i)
 		return this[i]
 	}
 	this.checkNumber = function(i){
-		if (typeof i != 'number')throw new Error('InvalidParameterException')
-		if (i<0 || i>=this.length)throw new Error('IndexOutOfBoundsException') //check for overflows
-		return i
+		if (typeof i != 'number')throw new Error('InvalidParameterException : ' + i + ' is not a number')
+		if (i<0 || i>=this.length)throw new Error('IndexOutOfBoundsException : ' + i +" is not a proper index of the array") //check for overflows
+	}
+	this.swap = function(i,j){
+		checkNumber(i)
+		checkNumber(j)
+		var tmp = this[i]
+		this[i]=this[j]
+		this[j]=tmp
 	}
 }
 
