@@ -15,6 +15,7 @@ var node = function(x, y){
     node.on('passify', passify)
     return node
     function toggleColor(){
+        reset()
         node.setFill(node.getFill()=='blue'?'red':'blue')
         update()
     }
