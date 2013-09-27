@@ -10,12 +10,11 @@ var node = function(x, y){
     })
     node.vertices= []
     node.on('dragstart', toggleColor)
-    node.on('dragend', toggleColor)
+    node.on('dragend', reset)
     node.on('activate', activate)
     node.on('passify', passify)
     return node
     function toggleColor(){
-        reset()
         node.setFill(node.getFill()=='blue'?'red':'blue')
         update()
     }
