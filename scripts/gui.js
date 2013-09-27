@@ -9,13 +9,14 @@ var node = function(x, y){
         strokeWidth:1
     })
     node.vertices= []
-    node.on('dragstart', toggleColor)
+    node.on('dragstart',dragColor)
     node.on('dragend', reset)
     node.on('activate', activate)
     node.on('passify', passify)
     return node
-    function toggleColor(){
-        node.setFill(node.getFill()=='blue'?'red':'blue')
+    function dragColor(){
+        reset()
+        node.setFill('blue')
         update()
     }
     function activate(){
