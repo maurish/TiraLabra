@@ -7,22 +7,29 @@ var stage = new Kinetic.Stage({
 var mainLayer = new Kinetic.Layer()
 
 var speed = 500
-
+var start = node(20,20)
+var end = node(450,450)
 var nodes = [
-    node(20,20),
+    start,
     node(150,150),
     node(250,50),
     node(400,200),
-    node(20,200)
+    node(20,200),
+    node(40,450),
+    end
 ]
+
 var vertices = [
-    vertice(nodes[0],nodes[1]),
+    vertice(start,nodes[1]),
     vertice(nodes[0],nodes[2]),
-    vertice(nodes[0],nodes[3]),
-    vertice(nodes[1],nodes[2]),
+    //vertice(nodes[0],nodes[3]),
+    //vertice(nodes[1],nodes[2]),
     vertice(nodes[1],nodes[3]),
     vertice(nodes[2],nodes[3]),
-    vertice(nodes[3], nodes[4])
+    vertice(nodes[3],nodes[4]),
+    vertice(nodes[4],nodes[5]),
+    //vertice(start, nodes[4]),
+    vertice(nodes[5], end)
 ]
 vertices.forEach(function(vertice){
     mainLayer.add(vertice)
@@ -35,12 +42,19 @@ var functions = {
     distance:distance,
     neighbors:neighbors,
     visualizeCompare:visualizeCompare,
-    setUsed: setUsed
+    setUsed: setUsed,
+    markRoute:markRoute
 }
 stage.add(mainLayer)
-setTimeout(function(){
-    new aStar(nodes[0], nodes[4], functions)
-},500)
+$(function(){
+    $('.new').on('click', function(){
+        reset()
+    })
+    $('.go').on('click', function(){
+        new aStar(start, end, functions)    
+    })
+    
+})
 
 
 function distance(node1, node2){
@@ -62,7 +76,7 @@ function getOtherNode(vertice, node){
 }
 
 function visualizeCompare(node1, node2){
-    wait(500)
+    //wait(500)
     var vertice = findCommon(node1.vertices, node2.vertices)
     vertice.fire('compare')
 }
@@ -75,8 +89,27 @@ function findCommon(arr1, arr2){
     return ret
 }
 
+
+function reset(){
+    nodes.forEach(function(node){
+        node.setFill('red')
+    })
+    vertices.forEach(function(vertice){
+        vertice.setStroke('green')
+    })
+    update()
+}
+
 function setUsed(node){
     node.setFill('gray')
+    update()
+}
+
+function markRoute(node1, node2){
+    vertice = findCommon(node1.vertices, node2.vertices)
+    node1.setFill('blue')
+    node2.setFill('blue')
+    vertice.setStroke('blue')
     update()
 }
 
