@@ -1,23 +1,33 @@
-function aStar(start, end){
-    var queue = new BinaryHeap()
-    queue.insert(createNode(start,0))
-    
+function aStar(start, end, funcs){
+    var dis = funcs.distance(start, end)
+    var queue = new BinaryHeap(compare)
+    start = createNode(start,dis,0)
+    end = createNode(end)
+    visited = []
+    queue.insert(start)
+    i =0
     while (!queue.isEmpty()){
-        var current = queue.deleteMin()
-        if (current == end){ //@TODO better check
+        var current = queue.poll()
+        if (visited.indexOf(current.node)!=-1)
+            continue
+        visited.push(current.node)
+        console.log('current is', current.node.getX(), current.node.getY())
+        if (current.node == end.node){
+            console.log('PATH FOUND') 
             return //@TODO draw path?
         }
-        for (var i = 0; i < current.neighbors; i++) {
-            var neighbor = current.neighbors[i]
-            var distance = current.distance + cost(current,neighbor)
-            var estimate = neighbor.distance + heuristicEstimate(current,goal)
-            if (!neighbor.parent ||neighbor.distance>distance){
-                if (!neighbor.parent) queue.insert(neighbor)
-                else queue.peek() //@TODO need to heapify or bubbleup the heap, key has changed
-                neighbor.parent=current
-                neighbor.distance=distance
-            }
-        }
+        var neighbors = funcs.neighbors(current.node)
+        neighbors.forEach(function(neighbor){
+            neighbor = createNode(neighbor)
+            funcs.visualizeCompare(current.node, neighbor.node)
+            neighbor.dist = current.dist + cost(current,neighbor)
+            neighbor.est = heuristicEstimate(neighbor, end)
+            queue.push(neighbor)
+            neighbor.parent = current
+            console.log('node',neighbor.node.getX(),neighbor.node.getY(),'total cost through here is: ', neighbor.dist+neighbor.est)
+        })
+        funcs.setUsed(current.node)
+        if (i++ >10)return
     }
     
     function cost(start, end){
@@ -25,13 +35,20 @@ function aStar(start, end){
     }
     
     function heuristicEstimate(start,end){
-        return 0
+        return funcs.distance(start.node,end.node)
     }
     
-    function crateNode(estimate, distance, node){
-       var ret = new Number(estimate)
-       ret.distance = distance
-       ret.parent=ret
-       return ret
+    function createNode(node, estimate, distance, parent){
+        return {
+            dist:distance,
+            est:estimate,
+            node:node,
+            parent:parent
+        }
+    }
+
+
+    function compare(node1, node2){
+        return (node1.dist+node1.est)-(node2.dist+node2.est)
     }
 }
