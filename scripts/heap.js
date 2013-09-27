@@ -1,9 +1,9 @@
-function BinaryHeap(){
-    return MinHeap(2)
+function BinaryHeap(compare){
+    return MinHeap(2, compare)
 }
 //  childs are: n * i + 1  to n * i + n
 //  parent is: floor((i - 1) / n)
-function MinHeap(childs){
+function MinHeap(childs, compare){
     var list = []                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
     
     function insert(obj){
@@ -12,7 +12,7 @@ function MinHeap(childs){
     }
     
     function bubbleUp(i){
-        while (i!=0 && list[i]<list[parent(i)]){
+        while (i!=0 && compare(list[i], list[ parent(i) ] )<0 ){
             swap(i,parent(i))
             i=parent(i)
         }
@@ -50,7 +50,7 @@ function MinHeap(childs){
         var childs = child(i)
         for (var j=0;j<childs.length;j++){
             var next = childs[j]
-            if ( list[next]<list[min]){
+            if ( compare(list[next],list[min])<0 ){
                 min=next
             }
         }
@@ -82,7 +82,9 @@ function MinHeap(childs){
         deleteMin:deleteMin,
         size:size,
         hasNext:hasNext,
-        isEmpty:isEmpty
+        isEmpty:isEmpty,
+        poll:deleteMin, 
+        push:insert
     }
 }
 if (typeof module !=='undefined' && module.exports)
