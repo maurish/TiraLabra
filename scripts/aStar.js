@@ -13,8 +13,15 @@ function aStar(start, end, funcs){
         visited.push(current.node)
         console.log('current is', current.node.getX(), current.node.getY())
         if (current.node == end.node){
-            console.log('PATH FOUND') 
-            return //@TODO draw path?
+            console.log('PATH FOUND, marking route with blue') 
+            var path = []
+            while(current.parent){
+                path.push(current)
+                var next = current.parent
+                funcs.markRoute(current.node, next.node)
+                current=next
+            }
+            return path
         }
         var neighbors = funcs.neighbors(current.node)
         neighbors.forEach(function(neighbor){
@@ -24,7 +31,7 @@ function aStar(start, end, funcs){
             neighbor.est = heuristicEstimate(neighbor, end)
             queue.push(neighbor)
             neighbor.parent = current
-            console.log('node',neighbor.node.getX(),neighbor.node.getY(),'total cost through here is: ', neighbor.dist+neighbor.est)
+            //console.log('node',neighbor.node.getX(),neighbor.node.getY(),'total cost through here is: ', neighbor.dist+neighbor.est)
         })
         funcs.setUsed(current.node)
         if (i++ >10)return
