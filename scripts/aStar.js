@@ -31,7 +31,7 @@ function aStar(start, end, funcs){
             neighbor.est = heuristicEstimate(neighbor, end)
             queue.push(neighbor)
             neighbor.parent = current
-            //console.log('node',neighbor.node.getX(),neighbor.node.getY(),'total cost through here is: ', neighbor.dist+neighbor.est)
+            console.log('node',neighbor.node.getX(),neighbor.node.getY(),'total cost through here is: ', neighbor.dist+neighbor.est)
         })
         funcs.setUsed(current.node)
         if (i++ >10)return

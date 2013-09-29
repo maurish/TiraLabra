@@ -1,6 +1,6 @@
 var stage = new Kinetic.Stage({
     container:'visualizator',
-    width:500,
+    width:1500,
     height:500
 })
 
@@ -8,7 +8,7 @@ var mainLayer = new Kinetic.Layer()
 
 var speed = 500
 var start = node(20,20)
-var end = node(450,450)
+var end = node(1450,450)
 var nodes = [
     start,
     node(150,150),
@@ -16,6 +16,7 @@ var nodes = [
     node(400,200),
     node(20,200),
     node(40,450),
+    node(150,250),
     end
 ]
 
@@ -23,12 +24,14 @@ var vertices = [
     vertice(start,nodes[1]),
     vertice(nodes[0],nodes[2]),
     //vertice(nodes[0],nodes[3]),
-    //vertice(nodes[1],nodes[2]),
+    vertice(nodes[1],nodes[6]),
     vertice(nodes[1],nodes[3]),
     vertice(nodes[2],nodes[3]),
     vertice(nodes[3],nodes[4]),
     vertice(nodes[4],nodes[5]),
     //vertice(start, nodes[4]),
+    vertice(nodes[3], nodes[6]),
+    vertice(nodes[6], nodes[4]),
     vertice(nodes[5], end)
 ]
 vertices.forEach(function(vertice){
