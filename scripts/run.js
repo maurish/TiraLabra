@@ -1,14 +1,14 @@
 var stage = new Kinetic.Stage({
     container:'visualizator',
-    width:1500,
+    width:1250,
     height:500
 })
 
 var mainLayer = new Kinetic.Layer()
 
 var speed = 500
-var start = node(20,20)
-var end = node(1450,450)
+var start = node(20,30,'start')
+var end = node(1050,450,'end')
 var nodes = [
     start,
     node(150,150),
@@ -40,7 +40,7 @@ vertices.forEach(function(vertice){
 nodes.forEach(function(node){
     mainLayer.add(node)
 })
-
+reset()
 var functions = {
     distance:distance,
     neighbors:neighbors,
@@ -100,7 +100,10 @@ function reset(){
     vertices.forEach(function(vertice){
         vertice.setStroke('green')
     })
+    start.setFill('yellow')
+    end.setFill('yellow')
     update()
+    
 }
 
 function setUsed(node){
@@ -113,6 +116,8 @@ function markRoute(node1, node2){
     node1.setFill('blue')
     node2.setFill('blue')
     vertice.setStroke('blue')
+    start.setFill('yellow')
+    end.setFill('yellow')
     update()
 }
 

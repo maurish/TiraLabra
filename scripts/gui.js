@@ -1,4 +1,4 @@
-var node = function(x, y){
+var node = function(x, y, text){
     var node = new Kinetic.Circle({
         x:x,
         y:y,
@@ -13,6 +13,20 @@ var node = function(x, y){
     node.on('dragend', reset)
     node.on('activate', activate)
     node.on('passify', passify)
+    if(text){
+        text = new Kinetic.Text({
+            text:text,
+            x:x-10,
+            y:y-25,
+            fill:'black',
+            fontFamily:'Verdana'
+        })
+        node.on('dragmove', function(){
+            text.setX(node.getX()-10)
+            text.setY(node.getY()-25)
+        })
+        mainLayer.add(text)
+    }
     return node
     function dragColor(){
         reset()
@@ -69,7 +83,6 @@ var vertice = function(node1, node2){
         var y = (node1.getY()+node2.getY())/2 - (Math.cos(angle)*distanceFromLine)
         text.setX(x)
         text.setY(y)
-        console.log(Math.cos(angle)*distanceFromLine)
     }
     function compare(){
         vertice.setStroke('red')
