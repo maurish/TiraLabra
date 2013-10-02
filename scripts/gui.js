@@ -38,6 +38,13 @@ var vertice = function(node1, node2){
         stroke:'green',
         strokeWidth:2
     })
+    var text = new Kinetic.Text({
+        text:'asdasd',
+        fill:'black',
+        rotation:45,
+        fontSize:13,
+        fontFamily:'Verdana'
+    })
     node1.vertices.push(vertice)
     node2.vertices.push(vertice)
     vertice.node1=node1
@@ -46,9 +53,23 @@ var vertice = function(node1, node2){
     node2.on('dragmove',updatePoints)
     vertice.on('compare', compare)
     updatePoints()
+    mainLayer.add(text)
     return vertice
     function updatePoints(){
         vertice.setPoints([node1.getX(),node1.getY(),node2.getX(),node2.getY()])
+       
+        text.setText(parseInt(distance(node1,node2)))
+        var width  =node1.getX()-node2.getX()
+        var height = node1.getY()-node2.getY()
+        var angle = Math.atan(height/width)
+        text.setRotation(angle)
+        
+        var distanceFromLine = 15
+        var x = (node1.getX()+node2.getX())/2 + (Math.sin(angle)*distanceFromLine)
+        var y = (node1.getY()+node2.getY())/2 - (Math.cos(angle)*distanceFromLine)
+        text.setX(x)
+        text.setY(y)
+        console.log(Math.cos(angle)*distanceFromLine)
     }
     function compare(){
         vertice.setStroke('red')
