@@ -54,7 +54,8 @@ $(function(){
         reset()
     })
     $('.go').on('click', function(){
-        new aStar(start, end, functions)    
+        var result = new aStar(start, end, functions)  
+          
     })
     
 })
