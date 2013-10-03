@@ -89,3 +89,19 @@ var vertice = function(node1, node2){
         update()
     }
 }
+var GUI = {}
+GUI.visualize = function(steps){
+    
+}
+GUI.insertNode = function(node){
+
+}
+GUI.insertVertice = function(node1, node2){
+
+}
+GUI.go = function(){
+
+}
+GUI.update = function(){
+    update()
+}
