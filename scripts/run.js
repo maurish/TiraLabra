@@ -5,18 +5,22 @@ var stage = new Kinetic.Stage({
 })
 
 var mainLayer = new Kinetic.Layer()
+var verticeLayer = new Kinetic.Layer()
+var topLayer = new Kinetic.Layer()
 
 var speed = 500
-var start = node(20,30,'start')
-var end = node(1050,450,'end')
+var start = node(20,30,'s')
+var end = node(1050,450,'e')
 var nodes = [
     start,
-    node(150,150),
-    node(250,50),
-    node(400,200),
-    node(20,200),
-    node(40,450),
-    node(150,250),
+    node(150,150,'1'),
+    node(250,50,'2'),
+    node(700,100,'3'),
+    node(520,200,'4'),
+    node(440,450,'5'),
+    node(50,250,'6'),
+    node(700,190, '7'),
+    node(750,350,'8'),
     end
 ]
 
@@ -32,15 +36,20 @@ var vertices = [
     //vertice(start, nodes[4]),
     vertice(nodes[3], nodes[6]),
     vertice(nodes[6], nodes[4]),
+    vertice(nodes[3], nodes[5]),
+    vertice(nodes[3],nodes[7]),
+    vertice(nodes[7],nodes[8]),
+    vertice(nodes[8], nodes[5]),
+    vertice(nodes[8], end),
+    vertice(nodes[3],end),
     vertice(nodes[5], end)
 ]
 vertices.forEach(function(vertice){
-    mainLayer.add(vertice)
+    verticeLayer.add(vertice)
 })
 nodes.forEach(function(node){
     mainLayer.add(node)
 })
-reset()
 var functions = {
     distance:distance,
     neighbors:neighbors,
@@ -48,21 +57,130 @@ var functions = {
     setUsed: setUsed,
     markRoute:markRoute
 }
+
+var funcs = (function(){
+    var log = []
+    var interval
+    return {
+        distance:distance,
+        neighbors:neighbors,
+        visualizeCompare:compare,
+        setUsed: used,
+        markRoute:route,
+        go:go,
+        stop:stop,
+        setCurrent:current
+    }
+    function compare(node1,node2){
+        log.push(function(){
+            visualizeCompare(node1,node2)
+        })
+    }
+    function current(node){
+        log.push(function(){
+
+        node.setFill('orange')
+        update()
+        })
+    }
+    function used(node1, node2, dist, est){
+        log.push(function(){
+            if (node2){
+                findCommon(node1.vertices,node2.vertices).setStroke('gray')
+                node2.tip.refresh(Math.floor(dist),Math.floor(est))
+            }
+            else
+                setUsed(node1)
+            update()
+        })
+    }
+    function stop(){
+        clearInterval(interval)
+        log=[]
+    }
+
+    function route(node1, node2){
+        log.push(function(){
+            markRoute(node1,node2)
+        })
+    }
+
+    function go(){
+
+        interval = setInterval(next, $('.speed').val())
+    }
+    function next(){
+        if (!log.length){
+            stop()
+            return
+        }
+
+        log.shift()()
+    }
+})()
+
+reset()
+stage.add(verticeLayer)
 stage.add(mainLayer)
+stage.add(topLayer)
+
+//var gui = GUI({container:'visualizator'});
 $(function(){
     $('.new').on('click', function(){
         reset()
     })
     $('.go').on('click', function(){
-        var result = new aStar(start, end, functions)  
-          
+        reset()
+        //var result = new aStar(start, end, funcs)  
+        //var result = new dijkstra(start,end,funcs)
+        if ($('.alg').val()==1){
+            dijkstra(start, end, funcs) 
+            console.log('dijkstra')
+        } else {
+            aStar(start, end, funcs)
+            console.log('astar') 
+        }
+        funcs.go()
+    })
+    $('.node').on('click', function(){
+        var newnode = node(Math.random()*1000,Math.random()*500)
+        nodes.push(newnode)
+        mainLayer.add(newnode)
+        reset()
+        update()
     })
     
+    var node1
+    mainLayer.on('mousedown', function(e){
+        if (node1){
+            if (e.targetNode==node1){
+                node1=null;
+                reset()
+                return
+            }
+            var ver = vertice(node1,e.targetNode)
+            vertices.push(ver)
+            verticeLayer.add(ver)
+            reset()
+            node1=null
+        }else{
+            node1=e.targetNode
+            node1.fire('select')
+        }
+    })
+    mainLayer.on('dragstart', function(){
+        node1=null;
+    })
+    mainLayer.on('dragend', function(){
+        node1=null
+    })
 })
 
 
-function distance(node1, node2){
-    return Math.sqrt(Math.pow(node1.getX()-node2.getX(),2) + Math.pow(node1.getY()-node2.getY(),2))
+function distance(node1, node2){ // distance using pythagoras
+    var x = node1.getX() - node2.getX()
+    var y = node1.getY() - node2.getY()
+    return Math.sqrt(Math.pow(x,2) + Math.pow(y,2))
 }
 
 function neighbors(node){
@@ -96,7 +214,7 @@ function findCommon(arr1, arr2){
 
 function reset(){
     nodes.forEach(function(node){
-        node.setFill('red')
+        node.reset()
     })
     vertices.forEach(function(vertice){
         vertice.setStroke('green')
@@ -104,8 +222,10 @@ function reset(){
     start.setFill('yellow')
     end.setFill('yellow')
     update()
-    
+    funcs.stop()
 }
+
+
 
 function setUsed(node){
     node.setFill('gray')
@@ -113,18 +233,11 @@ function setUsed(node){
 }
 
 function markRoute(node1, node2){
-    vertice = findCommon(node1.vertices, node2.vertices)
+    var vertice = findCommon(node1.vertices, node2.vertices)
     node1.setFill('blue')
     node2.setFill('blue')
     vertice.setStroke('blue')
     start.setFill('yellow')
     end.setFill('yellow')
     update()
-}
-
-
-// @TODO BAD CODE, REMOVE THIS ASAP, use non-blockin code instead ( callbacks)
-function wait(ms) {
-    var start = +(new Date());
-    while (new Date() - start < ms);
 }

@@ -1,5 +1,31 @@
 function Set(compare){
-	return new TreeSet(compare);
+	return new FakeSet(compare);
+}
+function FakeSet(compare){
+	var list = []
+	compare =  compare||function(a, b){
+		if (typeof a !=='number' || typeof b !=='number'){
+			throw new Exception('You need to implement pass compare method in constructor for non-number '+
+				'objects. '+ typeof a + " "+typeof b)
+		}
+		return a-b
+	}
+
+	return {
+		insert:insert,
+		contains:contains,
+		remove:list.poll,
+		size:size,
+		isEmpty:isEmpty
+	}
+	function insert(elem){
+		list.push(elem)
+	}
+	function contains(element){
+		return list.indexOf(element)!=-1
+	}
+	function size(){return list.length}
+	function isEmpty(){return size()==0}
 }
 function TreeSet(compare){
 	var size =0

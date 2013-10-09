@@ -12,7 +12,7 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
         <script src="https://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.6.0.js"></script>
         <!-- /LIBRARIES-->
-        
+
         <script src="scripts/heap.js"></script>
 
     </head>
@@ -21,7 +21,15 @@
         <script src="scripts/aStar.js" ></script>
         <script src="scripts/gui.js"></script>
         <script src="scripts/run.js"></script>
+        <script src="scripts/set.js"></script>
+        <button class="go">Go!</button>
         <button class="new">Reset</button>
-        <button class="go">Calculate</button>
+        <button class="node">New node</button>
+        <select class="alg">
+            <option value="1">dijkstra</option>
+            <option value="2">aStar</option>
+        </select>
+        <br>
+        <input value="200" type="number" class="speed">ms</input>
     </body>
 </html>
