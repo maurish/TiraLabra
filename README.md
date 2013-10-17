@@ -12,6 +12,7 @@ Google-chrome -browser
 # Testing requirements
 node.js
 Mocha
+chai
 make
 
 ## How to run
@@ -20,13 +21,20 @@ make
 	
 Just open index.html with Chrome and everything should work.
 
-### Tests
-
+## Tests
+### Run all tests
 ``` bash
 make test
 ```
-tests are located inside scripts/test folder relative to the project root
-single tests are run with nodejs, just type node *test.js where * is the name of the object to be tested
+
+### Watching files and running tests on file change
+``` bash
+make test-w
+```
+
+### Running invidual tests
+tests are located inside scripts/tests folder relative to the project root
+example:
 ``` bash
 mocha scripts/tests/arrayTest.js
 mocha scripts/tests/heapTest.js
