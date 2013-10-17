@@ -21,3 +21,8 @@ array.remove(1)
 assert.equal(array.get(0),1)
 assert.equal(array.get(1),3)
 assert.equal(array.length,2)
+
+
+describe('testing testins', function(){
+	it ('hashas')
+})
