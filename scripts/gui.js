@@ -1,3 +1,4 @@
+var i = 1
 var node = function(x, y, text){
     var node = new Kinetic.Circle({
         x:x,
@@ -22,7 +23,7 @@ var node = function(x, y, text){
         fontFamily:'Verdana'
     })
     var id = new Kinetic.Text({
-        text:text,
+        text:text||i++,
         x:x-4,
         y:y-5,
         fill:'black',
@@ -56,6 +57,9 @@ var node = function(x, y, text){
         tip.setY(node.getY()-25)
         id.setX(node.getX()-3)
         id.setY(node.getY()-5)
+    })
+    id.on('select', function(){
+        node.fire('select')
     })
     node.tip = tip
     mainLayer.add(tip)

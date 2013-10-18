@@ -1,0 +1,95 @@
+{
+	"simple":{
+		"graph":{
+			"1":[
+				{"to":"2", "distance":50}
+			],
+			"2":[
+				{"to":"1", "distance":50}
+			]
+		},
+		"start":"1",
+		"end":"2"
+	},
+	"v":{
+		"graph":{
+			"1":[
+				{"to":"2","distance":100}
+			],
+			"2":[
+				{"to":"1", "distance":100},
+				{"to":"3", "distance":150}
+			],
+			"3":[
+				{"to":"2", "distance":150}
+			]
+		},
+		"start":"1",
+		"end":"3"
+
+	},
+	"complex":{
+		"graph":{
+			"1":[
+				{"to":"2","distance":1},
+				{"to":"3","distance":2},
+				{"to":"4","distance":2},
+				{"to":"5","distance":2}
+			],
+			"2":[
+				{"to":"6","distance":2}
+			],
+			"3":[
+				{"to":"6","distance":2}
+			],
+			"4":[
+				{"to":"6","distance":2}
+			],
+			"5":[
+				{"to":"6","distance":2}
+			],
+			"6":[
+				{"to":"7","distance":50},
+				{"to":"8","distance":49},
+				{"to":"9","distance":50},
+				{"to":"10","distance":50},
+				{"to":"11","distance":50},
+				{"to":"12","distance":50},
+				{"to":"13","distance":50},
+				{"to":"14","distance":50},
+				{"to":"15","distance":100}
+			],
+			"7":[
+				{"to":"15","distance":50}
+			],
+			"8":[
+				{"to":"15","distance":50}
+			],
+			"9":[
+				{"to":"15","distance":50}
+			],
+			"10":[
+				{"to":"15","distance":50}
+			],
+			"11":[
+				{"to":"15","distance":50}
+			],
+			"12":[
+				{"to":"15","distance":50}
+			],
+			"13":[
+				{"to":"15","distance":50}
+			],
+			"14":[
+				{"to":"15","distance":50}
+			],
+			"15":[
+			]
+
+		},
+		"start":"1",
+		"end":"15"
+	}
+
+
+}

@@ -88,4 +88,4 @@ function MinHeap(childs, compare){
     }
 }
 if (typeof module !=='undefined' && module.exports)
- module.exports = exports = MinHeap
+ module.exports = exports = BinaryHeap

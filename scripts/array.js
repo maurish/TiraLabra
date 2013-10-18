@@ -20,7 +20,7 @@ function Array(comparator){
 	}
 	this.checkNumber = function(i){
 		if (typeof i != 'number')throw new Error('InvalidParameterException : ' + i + ' is not a number')
-		if (i<0 || i>=this.length)throw new Error('IndexOutOfBoundsException : ' + i +" is not a proper index of the array") //check for overflows
+		if (i<0 || i>=this.length)throw new Error('IndexOutOfBoundsException : ' + i + " is not a proper index of the array") //check for overflows
 	}
 	this.swap = function(i,j){
 		this.checkNumber(i)

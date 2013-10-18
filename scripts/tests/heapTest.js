@@ -6,7 +6,7 @@ var heap
 
 describe('Heap', function(){
 	beforeEach(function(){
-		heap = Heap( 2,function(elem1, elem2){
+		heap = Heap( function(elem1, elem2){
 			return elem1 - elem2;
 		})
 	})
@@ -22,6 +22,12 @@ describe('Heap', function(){
 			heap.insert(1)
 			heap.poll()
 			expect(heap.isEmpty()).to.be.true
+		})
+		it('false after adding, removing and adding', function(){
+			heap.insert(1)
+			heap.poll()
+			heap.insert(1)
+			expect(heap.isEmpty()).to.be.false
 		})
 	})
 	describe('#poll', function(){
@@ -66,6 +72,22 @@ describe('Heap', function(){
 		})
 	})
 	describe('#push', function(){
-		
+		it ('not crash', function(){
+			expect(function(){heap.push(1)}).not.to.throw()
+		})
+	})
+	describe('#size', function(){
+		it('0 initially', function(){
+			expect(heap.size()).to.eq(0)
+		})
+		it ('1 after added 1', function(){
+			heap.push(1)
+			expect(heap.size()).to.eq(1)
+		})
+		it('0 if added 1 and polled', function(){
+			heap.push(1)
+			heap.poll()
+			expect(heap.size()).to.eq(0)
+		})
 	})
 })
