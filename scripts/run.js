@@ -13,14 +13,14 @@ var start = node(20,30,'s')
 var end = node(1050,450,'e')
 var nodes = [
     start,
-    node(150,150,'1'),
-    node(250,50,'2'),
-    node(700,100,'3'),
-    node(520,200,'4'),
-    node(440,450,'5'),
-    node(50,250,'6'),
-    node(700,190, '7'),
-    node(750,350,'8'),
+    node(150,150),
+    node(250,50),
+    node(700,100),
+    node(520,200),
+    node(440,450),
+    node(50,250),
+    node(700,190),
+    node(750,350),
     end
 ]
 
@@ -69,7 +69,10 @@ var funcs = (function(){
         markRoute:route,
         go:go,
         stop:stop,
-        setCurrent:current
+        setCurrent:current,
+        compare:function(n1,n2){
+            return (parseInt(n1.getX())*1000+parseInt(n1.getY())) - (parseInt(n2.getX())*1000+parseInt(n2.getY()))
+        }
     }
     function compare(node1,node2){
         log.push(function(){
@@ -135,10 +138,8 @@ $(function(){
         //var result = new dijkstra(start,end,funcs)
         if ($('.alg').val()==1){
             dijkstra(start, end, funcs) 
-            console.log('dijkstra')
         } else {
             aStar(start, end, funcs)
-            console.log('astar') 
         }
         funcs.go()
     })

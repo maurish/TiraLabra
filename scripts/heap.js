@@ -26,7 +26,7 @@ function MinHeap(childs, compare){
         return list.length
     }
     function deleteMin(){
-        if (list.length==0)return 0;
+        if (list.length==0)return undefined;
         var ret = list[0]
         list[0]=list[list.length-1]
         list.pop()
@@ -88,4 +88,4 @@ function MinHeap(childs, compare){
     }
 }
 if (typeof module !=='undefined' && module.exports)
- module.exports = exports = MinHeap
+ module.exports = exports = BinaryHeap
